@@ -1,0 +1,41 @@
+{
+  "name": "CIS3411-WebAI",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "jammy"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "openBrowser"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "extensions.autoUpdate": false,
+        "extensions.autoCheckUpdates": false,
+        "extensions.ignoreRecommendations": true,
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/usr/bin/bash",
+            "icon": "terminal-bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "donjayamanne.python-extension-pack"
+      ]
+    }
+  },
+  "containerEnv": {
+    "VSCODE_MARKETPLACE": "http://localhost"
+  },
+
+  "postCreateCommand": "apt-get update && apt-get install -y ca-certificates lsb-release libarchive-tools curl gnupg python3-pip software-properties-common git && rm -rf /var/lib/apt/lists/* && sh prepare.sh && [ -d ~/.vscode-server/extensions ] && chmod -R a-w ~/.vscode-server/extensions",
+  "runArgs": [
+    "--name",
+    "CIS3411-WebAI"
+  ],
+  "remoteUser": "root"
+}
